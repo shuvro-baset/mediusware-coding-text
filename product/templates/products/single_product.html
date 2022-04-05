@@ -1,0 +1,43 @@
+{% extends 'backend/base.html' %}
+
+{% block title %} Create Product {% endblock %}
+
+{% block content %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Update Product</h1>
+        <a href="{% url 'product:create.product' %}" class="float-right btn btn-primary">All Product</a>
+    </div>
+
+    <div class="row justify-content-center">
+        <form class="col-md-12" method="POST" novalidate>
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Product Title</label>
+                <input name="title" type="text" class="form-control" value="{{ product.product.title }}">
+            </div>
+            <div class="form-group">
+                <label>Product Description</label> <br>
+                <textarea name="desc" id="" class="w-100 form-control" rows="4">{{ product.product.description }}</textarea>
+            </div>
+            <div class="form-group">
+                <label>Product sku</label>
+                <input name="sku" type="text" class="form-control" value="{{ product.product.sku }}">
+            </div>
+            <div class="form-group">
+                <label>Product color</label>
+                <input name="color" type="text" class="form-control" value="{{ product.product_variant_one.variant_title }}">
+            </div>
+            <div class="form-group">
+                <label>Product Size</label>
+                <input name="size" type="text" class="form-control" value="{{ product.product_variant_two.variant_title }}">
+            </div>
+            <div class="form-group">
+                <label>Product Style</label>
+                <input name="style" type="text" class="form-control" value="{{ product.product_variant_three.variant_title }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+    </div>
+
+{% endblock %}
