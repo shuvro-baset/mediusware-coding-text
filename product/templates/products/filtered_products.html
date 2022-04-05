@@ -10,48 +10,7 @@
 
 
     <div class="card">
-        <form action="" method="post" class="card-header">
-            {% csrf_token %}
-            <div class="form-row justify-content-between">
-                <div class="col-md-2">
-                    <input type="text" name="title" placeholder="Product Title" class="form-control">
-                </div>
-                <div class="col-md-2">
-                    <select name="variant" id="" class="form-control">
-                        <option selected disabled>--Select A Variant--</option>
-                        <option disabled>Color</option>
-                        {% for c in colors %}
-                            <option name="variant"> {{ c }} </option>
-                        {% endfor %}
-                        <option disabled>Size</option>
-                        {% for sz in sizes %}
-                            <option name="variant"> {{ sz }} </option>
-                        {% endfor %}
-                        <option disabled>Style</option>
-                        {% for st in styles %}
-                            <option name="variant"> {{ st }} </option>
-                        {% endfor %}
-                    </select>
-                </div>
 
-                <div class="col-md-3">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Price Range</span>
-                        </div>
-                        <input type="text" name="price_from" aria-label="First name" placeholder="From"
-                               class="form-control">
-                        <input type="text" name="price_to" aria-label="Last name" placeholder="To" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <input type="date" name="date" placeholder="Date" class="form-control">
-                </div>
-                <div class="col-md-1">
-                    <button type="submit" class="btn btn-primary float-right"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
-        </form>
 
         <div class="card-body">
             <div class="table-response">
@@ -62,6 +21,8 @@
                         <th>Title</th>
                         <th>Description</th>
                         <th>Variant</th>
+                        <th>Price</th>
+                        <th>Stock</th>
                         <th width="150px">Action</th>
                     </tr>
                     </thead>
@@ -70,30 +31,33 @@
                     {% for pr in page_obj %}
                         <tr>
                             <td>{{ pr.id }}</td>
-                            <td>{{ pr.product.title }} <br> Created at : {{ pr.product.created_at }}</td>
-                            <td>{{ pr.product.description }}</td>
+                            <td>{{ pr.product.title }} <br> Created at : 25-Aug-2020</td>
+                            <td>{{ pr.product.description }}t</td>
                             <td>
                                 <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
+
                                     <dt class="col-sm-3 pb-0">
                                         {{ pr.product_variant_two.variant_title }}/ {{ pr.product_variant_one.variant_title }}/ {{ pr.product_variant_three.variant_title }}
                                     </dt>
-                                    <dd class="col-sm-9">
-                                        <dl class="row mb-0">
-                                            <dd class="col-sm-4 pb-0">Price : {{ pr.price }}</dd>
-                                            <dd class="col-sm-8 pb-0">InStock : {{ pr.stock }}</dd>
-                                        </dl>
-                                    </dd>
                                 </dl>
                                 <button onclick="$('#variant').toggleClass('h-auto')" class="btn btn-sm btn-link">Show
                                     more
                                 </button>
                             </td>
                             <td>
+                                Price : {{ pr.price }}
+                            </td>
+                            <td>
+                                InStock : {{ pr.stock }}
+                            </td>
+                            <td>
                                 <div class="btn-group btn-group-sm">
                                     <a href="" class="btn btn-success">Edit</a>
                                 </div>
                             </td>
+
                         </tr>
+
                     {% endfor %}
                     </tbody>
 
@@ -116,15 +80,12 @@
 
                             <!-- <span class="current">-->
                             <li class="px-2"><span class="page">Page</span> <span>{{ page_obj.number }}</span></li>
-                            <li class="px-2"><span class="page">of</span>
-                                <span>{{ page_obj.paginator.num_pages }}</span></li>
+                            <li class="px-2"><span class="page">of</span> <span>{{ page_obj.paginator.num_pages }}</span></li>
                             <!--  </span>-->
 
                             {% if page_obj.has_next %}
-                                <li class="px-2"><a href="?page={{ page_obj.next_page_number }}" class="next">next</a>
-                                </li>
-                                <li class="px-2"><a href="?page={{ page_obj.paginator.num_pages }}" class="last">last
-                                    &raquo;</a>
+                                <li class="px-2"><a href="?page={{ page_obj.next_page_number }}" class="next">next</a></li>
+                                <li class="px-2"><a href="?page={{ page_obj.paginator.num_pages }}" class="last">last &raquo;</a>
                                 </li>
                             {% endif %}
                             <!--   </span>-->
